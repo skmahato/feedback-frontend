@@ -8,7 +8,7 @@ const Layout = () => {
 
     return (
         <div>
-            Hello <em>{currentUser.email}</em>
+            Hello <em>{currentUser.name}</em>
         </div>
     )
 }
