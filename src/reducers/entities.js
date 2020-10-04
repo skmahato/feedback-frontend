@@ -1,10 +1,8 @@
 import { isEqual } from 'lodash';
 import * as immutable from 'object-path-immutable';
-import camelCase from 'camelcase';
-import camelcaseKeys from 'camelcase-keys';
 
 export const defaultEntities = {
-  
+  users: {}
 };
 
 export default function entities(state = defaultEntities, action) {
@@ -37,18 +35,15 @@ export default function entities(state = defaultEntities, action) {
   return state;
 }
 
-function setRecord(state, imm, data) {
-  if (!data.id) return;
-
-  let row = { ...data, type: camelCase(data.type) };
-  row = camelcaseKeys(row, { deep: true });
+function setRecord(state, imm, row) {
+  if (!row.id) return;
 
   const record = { ...row.attributes, id: row.id };
   const { relationships } = row;
 
   if (relationships) {
     Object.keys(relationships).forEach((relation) => {
-      record[relation] = Array.isArray(relationships[relation].data) ? relationships[relation].data.map(f => ({ ...f, type: camelCase(f.type) })) : { ...relationships[relation].data };
+      record[relation] = relationships[relation].data;
     });
   }
 

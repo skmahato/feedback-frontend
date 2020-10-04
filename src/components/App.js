@@ -1,38 +1,38 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { isEmpty } from 'lodash';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-import ajax from '../api/ajax';
-import './App.css';
+import BeforeLogin from './BeforeLogin';
+import Layout from './Layout';
+import { requestCurrentUser } from '../actions/users';
+import { currentUserSelector } from '../selectors/currentUserSelector';
 
-function App() {
+const App = () => {
+  const dispatch = useDispatch();
+  const currentUser = useSelector(currentUserSelector);
   const [loading, setLoading] = useState(true);
-  const [healthy, setHealthy] = useState(true);
 
   useEffect(() => {
     setLoading(true);
-    ajax('/', { method: 'GET' })
-    .then(() => {
-      setHealthy(true);
-    })
-    .catch(() => {
-      setHealthy(false);
-    }).finally(() => {
+    dispatch(requestCurrentUser()).then(() => {
       setLoading(false);
-    })
-  }, [])
+    });
+  }, [dispatch]);
 
   if (loading) {
+    return <CircularProgress />;
+  }
+
+  if (!isEmpty(currentUser)) {
     return (
-      <div className="App">
-        Loading...
-      </div>
-    )
+      <Layout />
+    );
   }
 
   return (
-    <div className="App">
-      {healthy ? 'Server is up and running...' : 'Server is down'}
-    </div>
+    <BeforeLogin />
   );
-}
+};
 
 export default App;
