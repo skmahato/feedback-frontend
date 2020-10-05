@@ -13,11 +13,11 @@ const Home = ({ currentUser }) => {
     
     return (
         <Grid container spacing={2}>
-            <Grid item sm={2}>
+            <Grid item sm={3}>
                 <Authentication currentUser={currentUser} />
             </Grid>
 
-            <Grid item sm={5}>
+            <Grid item sm={4}>
                 {dealerships.map(f => {
                     return (
                         <DealerInfo

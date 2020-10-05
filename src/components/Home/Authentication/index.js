@@ -30,10 +30,11 @@ function SignIn({ dispatch, classes, currentUser }) {
     const password = e.target.elements.password.value;
 
     if (open) {
+      const name = e.target.name.value;
       const confirmPassword = e.target.confirmPassword.value;
 
       if (email && password && confirmPassword) {
-        const params = { user: { email, password, password_confirmation: confirmPassword } };
+        const params = { user: { name, email, password, password_confirmation: confirmPassword } };
         dispatch(registerUser(params))
         .then((response) => {
           if (response.error) setError(response.payload.response.error);
@@ -93,8 +94,15 @@ function SignIn({ dispatch, classes, currentUser }) {
             </Typography>
           )}
 
+          {open && (
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="name">Full Name</InputLabel>
+              <Input id="name" name="name" autoFocus />
+            </FormControl>
+          )}
+
           <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="email">Username</InputLabel>
+            <InputLabel htmlFor="email">Email</InputLabel>
             <Input id="email" name="email" autoComplete="email" autoFocus />
           </FormControl>
 
