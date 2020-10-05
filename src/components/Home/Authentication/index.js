@@ -14,12 +14,13 @@ import {
   withStyles
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import { isEmpty } from 'lodash';
 
-import { requestLogin } from '../../actions/authentication';
-import { registerUser } from '../../actions/users';
+import { requestLogin, logout } from '../../../actions/authentication';
+import { registerUser } from '../../../actions/users';
 import styles from './styles';
 
-function SignIn({ dispatch, classes }) {
+function SignIn({ dispatch, classes, currentUser }) {
   const [error, setError] = useState(null);
   const [open, setOpen] = useState(false);
 
@@ -29,10 +30,11 @@ function SignIn({ dispatch, classes }) {
     const password = e.target.elements.password.value;
 
     if (open) {
+      const name = e.target.name.value;
       const confirmPassword = e.target.confirmPassword.value;
 
       if (email && password && confirmPassword) {
-        const params = { user: { email, password, password_confirmation: confirmPassword } };
+        const params = { user: { name, email, password, password_confirmation: confirmPassword } };
         dispatch(registerUser(params))
         .then((response) => {
           if (response.error) setError(response.payload.response.error);
@@ -47,6 +49,30 @@ function SignIn({ dispatch, classes }) {
         });
       } else setError({ message: 'email or password invalid' });
     }
+  }
+
+  const handleLogout = () => {
+    dispatch(logout());
+  }
+
+  if (!isEmpty(currentUser)) {
+    return (
+      <Paper className={classes.paper} elevation={0}>
+        <Avatar className={classes.avatar}>
+          {currentUser.name[0]}
+        </Avatar>
+
+        <Typography component="h1" variant="h5">
+            {currentUser.name}
+        </Typography>
+
+        <Typography component="h5" variant="h7">
+            {currentUser.email}
+        </Typography>
+
+        <Button onClick={handleLogout}>Logout</Button>
+      </Paper>
+    )
   }
 
   return (
@@ -68,8 +94,15 @@ function SignIn({ dispatch, classes }) {
             </Typography>
           )}
 
+          {open && (
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="name">Full Name</InputLabel>
+              <Input id="name" name="name" autoFocus />
+            </FormControl>
+          )}
+
           <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="email">Username</InputLabel>
+            <InputLabel htmlFor="email">Email</InputLabel>
             <Input id="email" name="email" autoComplete="email" autoFocus />
           </FormControl>
 

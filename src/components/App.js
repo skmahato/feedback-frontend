@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { isEmpty } from 'lodash';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import { isEmpty } from 'lodash';
 
-import BeforeLogin from './BeforeLogin';
-import Layout from './Layout';
+import Home from './Home';
 import { requestCurrentUser } from '../actions/users';
 import { currentUserSelector } from '../selectors/currentUserSelector';
+import { requestDealerships } from '../actions/dealerships';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const App = () => {
 
   useEffect(() => {
     setLoading(true);
+    dispatch(requestDealerships());
     dispatch(requestCurrentUser()).then(() => {
       setLoading(false);
     });
@@ -26,12 +28,17 @@ const App = () => {
 
   if (!isEmpty(currentUser)) {
     return (
-      <Layout />
+      <Switch>
+        <Route path="/" component={() => <Home currentUser={currentUser} />} />
+      </Switch>
     );
   }
 
   return (
-    <BeforeLogin />
+    <Switch>
+      <Route exact path="/" component={() => <Home currentUser={currentUser} />} />
+      <Route render={() => <Redirect to="/" />} />
+    </Switch>
   );
 };
 
