@@ -66,7 +66,7 @@ function SignIn({ dispatch, classes, currentUser }) {
             {currentUser.name}
         </Typography>
 
-        <Typography component="h5" variant="h7">
+        <Typography component="h5" variant="subtitle1">
             {currentUser.email}
         </Typography>
 

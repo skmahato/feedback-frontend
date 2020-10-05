@@ -31,7 +31,10 @@ const Home = ({ currentUser }) => {
 
             <Grid item sm={5}>
                 {selectedDealerId && (
-                    <Review selectedDealerId={selectedDealerId} />
+                    <Review
+                        selectedDealerId={selectedDealerId}
+                        currentUser={currentUser}
+                    />
                 )}
             </Grid>
         </Grid>
