@@ -4,9 +4,9 @@ import { getToken } from '../helpers/localStorageCache';
 const clientUrl = (uri) => {
   const uriPath = uri.startsWith('/') ? uri : `/${uri}`;
 
-  if (process.env.NODE_ENV.trim() === "development") {
-      return `http://localhost:4000${uriPath}`;
-  }
+  // if (process.env.NODE_ENV.trim() === "development") {
+  //     return `http://localhost:4000${uriPath}`;
+  // }
 
   return `https://hacktoberfest-backend.herokuapp.com${uriPath}`;
 };
