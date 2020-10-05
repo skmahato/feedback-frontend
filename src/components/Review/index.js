@@ -6,14 +6,12 @@ import { dealershipReviewSelector } from '../../selectors/dealerships';
 export const Review = ({ selectedDealerId }) => {
     const dealerReviews = useSelector(state => dealershipReviewSelector(state, selectedDealerId));
 
-    console.log(dealerReviews); 
-
     return (
         <>
             {dealerReviews.map(f => {
                 return (
                     <div key={f.id}>
-                        <strong>{f.title} | {f.rating} stars</strong>
+                        <strong>{f.title}</strong> | {f.rating} stars
                         <p><em>{f.comment}</em></p>
                     </div>
                 )

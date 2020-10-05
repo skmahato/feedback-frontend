@@ -5,14 +5,19 @@ import { Grid } from '@material-ui/core'
 import { dealershipsSelector } from '../../selectors/dealerships';
 import DealerInfo from '../DealerInfo';
 import Review from '../Review';
+import Authentication from './Authentication';
 
-const BeforeLogin = () => {
+const Home = ({ currentUser }) => {
     const [selectedDealerId, setSelectedDealerId] = useState(null);
     const dealerships = useSelector(dealershipsSelector);
     
     return (
         <Grid container spacing={2}>
-            <Grid item sm={6}>
+            <Grid item sm={2}>
+                <Authentication currentUser={currentUser} />
+            </Grid>
+
+            <Grid item sm={5}>
                 {dealerships.map(f => {
                     return (
                         <DealerInfo
@@ -24,7 +29,7 @@ const BeforeLogin = () => {
                 })}
             </Grid>
 
-            <Grid item sm={6}>
+            <Grid item sm={5}>
                 {selectedDealerId && (
                     <Review selectedDealerId={selectedDealerId} />
                 )}
@@ -33,4 +38,4 @@ const BeforeLogin = () => {
     )
 }
 
-export default BeforeLogin;
+export default Home;

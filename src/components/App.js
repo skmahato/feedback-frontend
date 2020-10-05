@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { isEmpty } from 'lodash';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import BeforeLogin from './BeforeLogin';
-import Layout from './Layout';
+import Home from './Home';
 import { requestCurrentUser } from '../actions/users';
 import { currentUserSelector } from '../selectors/currentUserSelector';
 import { requestDealerships } from '../actions/dealerships';
@@ -26,14 +24,8 @@ const App = () => {
     return <CircularProgress />;
   }
 
-  if (!isEmpty(currentUser)) {
-    return (
-      <Layout />
-    );
-  }
-
   return (
-    <BeforeLogin />
+    <Home currentUser={currentUser} />
   );
 };
 

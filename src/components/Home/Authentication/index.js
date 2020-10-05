@@ -14,12 +14,13 @@ import {
   withStyles
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import { isEmpty } from 'lodash';
 
-import { requestLogin } from '../../actions/authentication';
-import { registerUser } from '../../actions/users';
+import { requestLogin, logout } from '../../../actions/authentication';
+import { registerUser } from '../../../actions/users';
 import styles from './styles';
 
-function SignIn({ dispatch, classes }) {
+function SignIn({ dispatch, classes, currentUser }) {
   const [error, setError] = useState(null);
   const [open, setOpen] = useState(false);
 
@@ -47,6 +48,30 @@ function SignIn({ dispatch, classes }) {
         });
       } else setError({ message: 'email or password invalid' });
     }
+  }
+
+  const handleLogout = () => {
+    dispatch(logout());
+  }
+
+  if (!isEmpty(currentUser)) {
+    return (
+      <Paper className={classes.paper} elevation={0}>
+        <Avatar className={classes.avatar}>
+          {currentUser.name[0]}
+        </Avatar>
+
+        <Typography component="h1" variant="h5">
+            {currentUser.name}
+        </Typography>
+
+        <Typography component="h5" variant="h7">
+            {currentUser.email}
+        </Typography>
+
+        <Button onClick={handleLogout}>Logout</Button>
+      </Paper>
+    )
   }
 
   return (
