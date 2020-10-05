@@ -3,12 +3,13 @@ import { useSelector } from 'react-redux';
 import { Grid } from '@material-ui/core'
 
 import { dealershipsSelector } from '../../selectors/dealerships';
-import { DealerInfo } from '../DealerInfo';
+import DealerInfo from '../DealerInfo';
+import Review from '../Review';
 
 const BeforeLogin = () => {
     const [selectedDealerId, setSelectedDealerId] = useState(null);
     const dealerships = useSelector(dealershipsSelector);
-
+    
     return (
         <Grid container spacing={2}>
             <Grid item sm={6}>
@@ -25,9 +26,7 @@ const BeforeLogin = () => {
 
             <Grid item sm={6}>
                 {selectedDealerId && (
-                    <div>
-                        Reviews will go here
-                    </div>
+                    <Review selectedDealerId={selectedDealerId} />
                 )}
             </Grid>
         </Grid>
