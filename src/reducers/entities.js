@@ -2,7 +2,8 @@ import { isEqual } from 'lodash';
 import * as immutable from 'object-path-immutable';
 
 export const defaultEntities = {
-  users: {}
+  users: {},
+  dealership: {}
 };
 
 export default function entities(state = defaultEntities, action) {

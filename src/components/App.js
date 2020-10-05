@@ -7,6 +7,7 @@ import BeforeLogin from './BeforeLogin';
 import Layout from './Layout';
 import { requestCurrentUser } from '../actions/users';
 import { currentUserSelector } from '../selectors/currentUserSelector';
+import { requestDealerships } from '../actions/dealerships';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const App = () => {
 
   useEffect(() => {
     setLoading(true);
+    dispatch(requestDealerships());
     dispatch(requestCurrentUser()).then(() => {
       setLoading(false);
     });
