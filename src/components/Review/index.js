@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@material-ui/core';
 
 import ReactForm from './ReviewForm';
+import ReviewItem from './ReviewItem';
 import { createReview } from '../../actions/reviews';
 import { dealershipReviewSelector } from '../../selectors/dealerships';
-import currentUser from '../../reducers/currentUser';
 import { isEmpty } from 'lodash';
 
 export const Review = ({ selectedDealerId, currentUser }) => {
@@ -21,6 +21,8 @@ export const Review = ({ selectedDealerId, currentUser }) => {
         })
     }
 
+    const visibleReviews = dealerReviews.filter(f => f.visible)
+
     return (
         <div>
             {!isEmpty(currentUser) && (
@@ -32,15 +34,7 @@ export const Review = ({ selectedDealerId, currentUser }) => {
                 </>
             )}
 
-            {dealerReviews.map(f => {
-                return (
-                    <div key={f.id}>
-                        <strong>{f.title}</strong> | {f.rating} stars
-                        <p><em>{f.comment}</em></p>
-                        <hr />
-                    </div>
-                )
-            })}
+            {visibleReviews.map(f => <ReviewItem key={f.id} review={f} />)}
         </div>
     )
 }

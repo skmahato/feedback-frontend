@@ -8,7 +8,7 @@ export const DealerInfo = ({ dealer, handleDealerClick }) => {
             <p>{dealer.phone} | {dealer.email}</p>
             <em>{dealer.website}</em>
             <br />
-            <button type="button" onClick={() => handleDealerClick(dealer.id)}>Reviews</button>
+            {handleDealerClick && <button type="button" onClick={() => handleDealerClick(dealer.id)}>Reviews</button>}
             <hr />
         </div>
     )
