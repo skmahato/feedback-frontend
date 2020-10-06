@@ -16,3 +16,7 @@ export function updateDealership(data, id) {
 export function deleteDealership(id) {
     return ajax(`/api/dealerships/${id}`, { method: 'DELETE' });
 }
+
+export function generateApi(id) {
+  return ajax(`/api/dealerships/${id}/generate_api`);
+}

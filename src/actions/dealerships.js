@@ -7,7 +7,9 @@ import {
   UPDATE_DEALERSHIP_SUCCESS,
   UPDATE_DEALERSHIP_FAILURE,
   DELETE_DEALERSHIP_SUCCESS,
-  DELETE_DEALERSHIP_FAILURE
+  DELETE_DEALERSHIP_FAILURE,
+  GENERATE_API_SUCCESS,
+  GENERATE_API_FAILURE
 } from '../constants/actionTypes';
 
 import * as Dealerships from '../api/dealerships';
@@ -47,4 +49,13 @@ export function deleteDealership(id) {
   return dispatch => Dealerships.deleteDealership(id)
     .then(({ data }) => dispatch(deleteDealershipSuccess({ data, id })))
     .catch(error => dispatch(deleteDealershipFailure(error)));
+}
+
+const generateApiSuccess = createAction(GENERATE_API_SUCCESS);
+const generateApiFailure = createAction(GENERATE_API_FAILURE);
+
+export function generateApi(id) {
+  return dispatch => Dealerships.generateApi(id)
+    .then(({ data }) => dispatch(generateApiSuccess(data)))
+    .catch(error => dispatch(generateApiFailure(error)));
 }
