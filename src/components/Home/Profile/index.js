@@ -32,7 +32,8 @@ const Profile = () => {
             <h1>Profile Page</h1>
             <AddDealershipForm dealer={dealer} />
             {!api && <button onClick={generateApiHandler}>Generate Reviews API</button>}
-            {api && <span>{api}</span>}
+            {api && <p>To fetch reviews: {api}</p>}
+            {api && <p>For iFrame: {api.replace('back', 'front')}</p>}
             <DealerInfo dealer={dealer} />
             <br />
             <h2>Reviews</h2>
