@@ -5,6 +5,7 @@ import ReactForm from "./ReviewForm";
 import { createReview } from "../../actions/reviews";
 import { dealershipReviewSelector } from "../../selectors/dealerships";
 import { isEmpty } from "lodash";
+import ReviewItem from './ReviewItem';
 
 export const Review = ({ selectedDealerId, currentUser }) => {
   const dispatch = useDispatch();
@@ -21,61 +22,30 @@ export const Review = ({ selectedDealerId, currentUser }) => {
     });
   };
 
-  return (
-    <div style={{ ...styles.ReviewsRectangleBox }}>
-      {!isEmpty(currentUser) && (
-        <>
-          <Button type="button" onClick={handleClick}>
-            {open ? "Cancel" : "New Review"}
-          </Button>
-          {open && <ReactForm handleFormSubmit={handleSubmit} />}
+  const visibleReviews = dealerReviews.filter(f => f.visible)
 
-          <hr />
-        </>
-      )}
 
-      {dealerReviews.map((f) => {
-        return (
-          <div key={f.id}>
-            <p style={{ ...styles.MainTitleStyle }}>
-              <i> {f.title}</i> | {f.rating} stars
-            </p>
-            <p>
-              <em style={{ ...styles.commentStyle }}>{f.comment}</em>
-            </p>
-            <hr />
-          </div>
-        );
-      })}
-    </div>
-  );
-};
+    return (
+        <div style={{ ...styles.ReviewsRectangleBox }}>
+            <h2>Reviews</h2>
+            
+            {!isEmpty(currentUser) && (
+                <>
+                    <Button type="button" onClick={handleClick}>{open ? 'Cancel' : 'New Review'}</Button>
+                    {open && <ReactForm handleFormSubmit={handleSubmit} />}
+
+                    <hr />
+                </>
+            )}
+
+            {visibleReviews.map(f => <ReviewItem key={f.id} review={f} />)}
+        </div>
+    )
+}
+
+export default Review;
 
 const styles = {
-  commentStyle: {
-    width: 800,
-    height: 20,
-    fontFamily: "Roboto",
-    fontSize: 15,
-    fontWeight: "normal",
-    fontStretch: "normal",
-    fontStyle: "normal",
-    lineHeight: 1.54,
-    letterSpacing: 0.1,
-    color: "#333333",
-  },
-  MainTitleStyle: {
-    width: 800,
-    height: 22,
-    fontFamily: "Roboto",
-    fontSize: 18,
-    fontWeight: "bold",
-    fontStretch: "normal",
-    fontStyle: "normal",
-    lineHeight: 1.38,
-    letterSpacing: "normal",
-    color: "#1d86b8",
-  },
   ReviewsRectangleBox: {
     width: 600,
     backgroundColor: "#e6e6e6",
@@ -84,5 +54,3 @@ const styles = {
     border: "solid 1px #e6e6e6",
   },
 };
-
-export default Review;
