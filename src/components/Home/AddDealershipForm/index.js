@@ -81,7 +81,6 @@ export default function FormDialog({ dealer }) {
             onChange={e => setName(e.target.value)}
           />
           <TextField
-            autoFocus
             margin="dense"
             id="location"
             label="Location"
@@ -92,7 +91,6 @@ export default function FormDialog({ dealer }) {
             onChange={e => setLocation(e.target.value)}
           />
           <TextField
-            autoFocus
             margin="dense"
             id="description"
             label="Description"
@@ -103,7 +101,6 @@ export default function FormDialog({ dealer }) {
             onChange={e => setDesciption(e.target.value)}
           />
           <TextField
-            autoFocus
             margin="dense"
             id="contact"
             label="Contact Info"
@@ -114,7 +111,6 @@ export default function FormDialog({ dealer }) {
             onChange={e => setContact(e.target.value)}
           />
           <TextField
-            autoFocus
             margin="dense"
             id="website"
             label="Website"
@@ -125,7 +121,6 @@ export default function FormDialog({ dealer }) {
             onChange={e => setWebsite(e.target.value)}
           />
           <TextField
-            autoFocus
             margin="dense"
             id="email"
             label="Email Address"

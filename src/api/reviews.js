@@ -16,3 +16,7 @@ export function updateReview(data, dealershipId, id) {
 export function deleteReview(dealershipId, id) {
     return ajax(`/api/dealerships/${dealershipId}/reviews/${id}`, { method: 'DELETE' });
 }
+
+export function createReviewFromIframe(data) {
+  return ajax(`/`, { method: 'POST', data });
+}
