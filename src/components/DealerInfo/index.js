@@ -13,10 +13,10 @@ export const DealerInfo = ({ dealer, handleDealerClick }) => {
  
     return (
         <div style={{ ...styles.DealershipRectangle }}>
-            <div><p style={{ ...styles.DealershipTitle }}><strong>{dealer.name}</strong></p> | {dealer.location}</div>
-            <p>{dealer.description}</p>
-            <p>{dealer.phone} | {dealer.email}</p>
-            <em>{dealer.website}</em>
+            <div><p style={{ ...styles.DealershipTitle }}><strong>{dealer.name}</strong></p> Location: {dealer.location}</div>
+            <p>Description: {dealer.description}</p>
+            <p>Contact: {dealer.phone}</p><p>Email: {dealer.email}</p>
+            Website: <em>{dealer.website}</em>
             <br />          
             {handleDealerClick && <button style={{ ...styles.ReviewButtonStyle }} type="button" onClick={() => handleDealerClick(dealer.id)} ><p style = {{ ...styles.ButtonInnerText }} >Reviews</p></button>}
         </div>
