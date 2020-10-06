@@ -5,6 +5,7 @@ import { Grid } from '@material-ui/core';
 
 import DealerInfo from '../../DealerInfo';
 import ReviewItem from '../../Review/ReviewItem';
+import AddDealershipForm from '../AddDealershipForm';
 import { currenDealerShip } from '../../../selectors/currentUserSelector';
 import './Profile.css';
 
@@ -18,6 +19,7 @@ const Profile = () => {
     return (
             <Grid item sm={8}>
             <h1>Profile Page</h1>
+            <AddDealershipForm dealer={dealer} />
             <DealerInfo dealer={dealer} />
             <br />
             <h2>Reviews</h2>

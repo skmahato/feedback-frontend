@@ -6,19 +6,20 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { isEmpty } from 'lodash';
 
-import { createDealership } from '../../../actions/dealerships';
+import { createDealership, updateDealership } from '../../../actions/dealerships';
 
-export default function FormDialog() {
+export default function FormDialog({ dealer }) {
     const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
-  const [name, setName] = useState('');
-  const [location, setLocation] = useState('');
-  const [description, setDesciption] = useState('');
-  const [contact, setContact] = useState('');
-  const [website, setWebsite] = useState('');
-  const [email, setEmail] = useState('');
+  const [name, setName] = useState(dealer?.name || '');
+  const [location, setLocation] = useState(dealer?.location || '');
+  const [description, setDesciption] = useState(dealer?.description || '');
+  const [contact, setContact] = useState(dealer?.phone || '');
+  const [website, setWebsite] = useState(dealer?.website || '');
+  const [email, setEmail] = useState(dealer?.email || '');
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -34,22 +35,30 @@ export default function FormDialog() {
           name,
           location,
           description,
-          contact,
+          phone: contact,
           website,
           email
       }
 
-      dispatch(createDealership(params)).then((res) => {
-          if (!res.error) {
-              setOpen(false);
-          }
-      })
+        if (isEmpty(dealer)) {
+            return dispatch(createDealership(params)).then((res) => {
+                if (!res.error) {
+                    setOpen(false);
+                }
+            })
+        }
+
+        dispatch(updateDealership(params, dealer.id)).then((res) => {
+            if (!res.error) {
+                setOpen(false);
+            }
+        })
   }
 
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Add Dealership
+        {isEmpty(dealer) ? 'Add Dealership' : 'Edit Dealership'}
       </Button>
 
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
