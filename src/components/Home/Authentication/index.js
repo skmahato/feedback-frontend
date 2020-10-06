@@ -15,12 +15,14 @@ import {
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { isEmpty } from 'lodash';
+import { useHistory } from 'react-router-dom';
 
 import { requestLogin, logout } from '../../../actions/authentication';
 import { registerUser } from '../../../actions/users';
 import styles from './styles';
 
-function SignIn({ dispatch, classes, currentUser }) {
+function SignIn({ dispatch, classes, currentUser, handleProfileClick, handleHomeClick }) {
+  let history = useHistory();
   const [error, setError] = useState(null);
   const [open, setOpen] = useState(false);
 
@@ -66,10 +68,12 @@ function SignIn({ dispatch, classes, currentUser }) {
             {currentUser.name}
         </Typography>
 
-        <Typography component="h5" variant="h7">
+        <Typography component="h5" variant="subtitle1">
             {currentUser.email}
         </Typography>
 
+        <Button onClick={() => history.push('/')}>Home</Button>
+        {currentUser.admin && <Button onClick={() => history.push('/profile')}>Profile</Button>}
         <Button onClick={handleLogout}>Logout</Button>
       </Paper>
     )

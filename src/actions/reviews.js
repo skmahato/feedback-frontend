@@ -7,7 +7,9 @@ import {
   UPDATE_REVIEW_SUCCESS,
   UPDATE_REVIEW_FAILURE,
   DELETE_REVIEW_SUCCESS,
-  DELETE_REVIEW_FAILURE
+  DELETE_REVIEW_FAILURE,
+  CREATE_REVIEW_FROM_IFRAME_SUCCESS,
+  CREATE_REVIEW_FROM_IFRAME_FAILURE
 } from '../constants/actionTypes';
 
 import * as Reviews from '../api/reviews';
@@ -47,4 +49,13 @@ export function deleteReview(id) {
   return dispatch => Reviews.deleteReview(id)
     .then(({ data }) => dispatch(deleteReviewSuccess({ data, id })))
     .catch(error => dispatch(deleteReviewFailure(error)));
+}
+
+const createReviewFromIframeSuccess = createAction(CREATE_REVIEW_FROM_IFRAME_SUCCESS);
+const createReviewFromIframeFailure = createAction(CREATE_REVIEW_FROM_IFRAME_FAILURE);
+
+export function createReviewFromIframe(params, token) {
+  return dispatch => Reviews.createReviewFromIframe(params, token)
+    .then(({ data }) => dispatch(createReviewFromIframeSuccess(data)))
+    .catch(error => dispatch(createReviewFromIframeFailure(error)));
 }

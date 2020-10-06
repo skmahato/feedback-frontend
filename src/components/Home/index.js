@@ -1,15 +1,20 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { Grid } from '@material-ui/core'
+import React from 'react';
+import { Grid } from '@material-ui/core';
+import { Route, Switch, useLocation } from 'react-router-dom';
 
-import { dealershipsSelector } from '../../selectors/dealerships';
-import DealerInfo from '../DealerInfo';
-import Review from '../Review';
 import Authentication from './Authentication';
+import Layout from './Layout';
+import Profile from './Profile';
+import ReviewFormForIframe from '../ReviewFormForIframe';
 
 const Home = ({ currentUser }) => {
-    const [selectedDealerId, setSelectedDealerId] = useState(null);
-    const dealerships = useSelector(dealershipsSelector);
+    const location = useLocation();
+
+    if (location.search) {
+        return (
+            <ReviewFormForIframe token={location.search} />
+        )
+    }
     
     return (
         <Grid container spacing={2}>
@@ -17,23 +22,10 @@ const Home = ({ currentUser }) => {
                 <Authentication currentUser={currentUser} />
             </Grid>
 
-            <Grid item sm={4}>
-                {dealerships.map(f => {
-                    return (
-                        <DealerInfo
-                            key={f.id}
-                            dealer={f}
-                            handleDealerClick={(id) => setSelectedDealerId(id)}
-                        />
-                    )
-                })}
-            </Grid>
-
-            <Grid item sm={5}>
-                {selectedDealerId && (
-                    <Review selectedDealerId={selectedDealerId} />
-                )}
-            </Grid>
+            <Switch>
+                <Route exact path="/" component={() => <Layout currentUser={currentUser} />} />
+                <Route exact path="/profile" component={() => <Profile currentUser={currentUser} />} />
+            </Switch>
         </Grid>
     )
 }
