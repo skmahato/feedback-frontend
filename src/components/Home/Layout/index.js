@@ -5,6 +5,7 @@ import { Grid } from '@material-ui/core';
 import { dealershipsSelector } from '../../../selectors/dealerships';
 import DealerInfo from '../../DealerInfo';
 import Review from '../../Review';
+import AddDealershipForm from '../AddDealershipForm';
 
 const Layout = ( { currentUser }) => {
     const [selectedDealerId, setSelectedDealerId] = useState(null);
@@ -13,6 +14,8 @@ const Layout = ( { currentUser }) => {
     return (
         <>
             <Grid item sm={4}>
+                <h2>Dealerships</h2>
+                {currentUser && !currentUser.admin && <AddDealershipForm />}
                 {dealerships.map(f => {
                     return (
                         <DealerInfo

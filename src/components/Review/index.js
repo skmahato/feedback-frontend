@@ -25,6 +25,7 @@ export const Review = ({ selectedDealerId, currentUser }) => {
 
     return (
         <div>
+            <h2>Reviews</h2>
             {!isEmpty(currentUser) && (
                 <>
                     <Button type="button" onClick={handleClick}>{open ? 'Cancel' : 'New Review'}</Button>
