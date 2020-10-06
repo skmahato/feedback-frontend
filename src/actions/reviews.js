@@ -54,8 +54,8 @@ export function deleteReview(id) {
 const createReviewFromIframeSuccess = createAction(CREATE_REVIEW_FROM_IFRAME_SUCCESS);
 const createReviewFromIframeFailure = createAction(CREATE_REVIEW_FROM_IFRAME_FAILURE);
 
-export function createReviewFromIframe(params) {
-  return dispatch => Reviews.createReviewFromIframe(params)
+export function createReviewFromIframe(params, token) {
+  return dispatch => Reviews.createReviewFromIframe(params, token)
     .then(({ data }) => dispatch(createReviewFromIframeSuccess(data)))
     .catch(error => dispatch(createReviewFromIframeFailure(error)));
 }

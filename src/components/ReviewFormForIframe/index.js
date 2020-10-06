@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ReviewForm() {
+export default function ReviewForm({ token }) {
   const dispatch = useDispatch();
   const [rating, setRating] = useState(0);
   const [name, setName] = useState("");
@@ -64,7 +64,7 @@ export default function ReviewForm() {
         visible,
       },
     };
-    dispatch(createReviewFromIframe(params)).then((res) => {
+    dispatch(createReviewFromIframe(params, token)).then((res) => {
       if (!res.error) {
         return setSuccess(true);
       }

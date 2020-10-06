@@ -12,7 +12,7 @@ const Home = ({ currentUser }) => {
 
     if (location.search) {
         return (
-            <ReviewFormForIframe />
+            <ReviewFormForIframe token={location.search} />
         )
     }
     
