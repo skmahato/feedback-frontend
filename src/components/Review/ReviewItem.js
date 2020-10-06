@@ -1,9 +1,10 @@
 import React from 'react';
+import Rating from '@material-ui/lab/Rating';
 
 const ReviewItem = ({ review }) => {
     return (
         <div>
-            <p style={{ ...styles.MainTitleStyle }}><i>{review.title}</i> | {review.rating} stars</p>
+            <p style={{ ...styles.MainTitleStyle }}><i>{review.title}</i> | <Rating name="read-only" value={review.rating} readOnly /></p>
             <p><em style={{ ...styles.commentStyle }}>{review.comment}</em></p>
             <p><i><b>- {review?.user?.name || ''}</b></i></p>
             <hr />
