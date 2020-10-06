@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { isEmpty } from 'lodash';
+import { Grid } from '@material-ui/core';
 
 import DealerInfo from '../../DealerInfo';
 import ReviewItem from '../../Review/ReviewItem';
@@ -15,7 +16,7 @@ const Profile = () => {
     }
 
     return (
-        <div>
+            <Grid item sm={8}>
             <h1>Profile Page</h1>
             <DealerInfo dealer={dealer} />
             <br />
@@ -27,7 +28,7 @@ const Profile = () => {
                     </div>
                 )
             })}
-        </div>
+            </Grid>
     )
 }
 
