@@ -7,16 +7,20 @@ import { requestReviews } from '../../../actions/reviews';
 import DealerInfo from '../../DealerInfo';
 import Review from '../../Review';
 import AddDealershipForm from '../AddDealershipForm';
+import { selectedDealership } from '../../../actions/dealerships';
 
 const Layout = ( { currentUser }) => {
     const dispatch = useDispatch();
-    const [selectedDealerId, setSelectedDealerId] = useState(null);
+    // const [selectedDealerId, setSelectedDealerId] = useState(null);
     const dealerships = useSelector(dealershipsSelector);
 
     const handleDealerClick = (id) => {
-        setSelectedDealerId(id);
+        // setSelectedDealerId(id);
         dispatch(requestReviews(id));
+        dispatch(selectedDealership(id));
     }
+
+    const selectedDealerId = useSelector(state => state.dealerships.selected);
 
     return (
         <>

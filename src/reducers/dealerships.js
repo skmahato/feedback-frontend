@@ -6,10 +6,11 @@ import {
     CREATE_DEALERSHIP_SUCCESS,
     CREATE_DEALERSHIP_FAILURE,
     DELETE_DEALERSHIP_SUCCESS,
-    DELETE_DEALERSHIP_FAILURE
+    DELETE_DEALERSHIP_FAILURE,
+    SELECTED_DEALERSHIP
   } from '../constants/actionTypes';
   
-  const INITIAL_STATE = { ids: [], error: null };
+  const INITIAL_STATE = { ids: [], error: null, selected: null };
   
   export default function dealerships(state = INITIAL_STATE, action) {
     switch (action.type) {
@@ -46,6 +47,11 @@ import {
             ...state,
             error: action.payload.message
         };
+      case SELECTED_DEALERSHIP:
+        return {
+          ...state,
+          selected: action.payload
+        }
       default:
         return state;
     }

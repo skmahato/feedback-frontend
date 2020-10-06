@@ -8,11 +8,13 @@ import {
   UPDATE_DEALERSHIP_FAILURE,
   DELETE_DEALERSHIP_SUCCESS,
   DELETE_DEALERSHIP_FAILURE,
+  SELECTED_DEALERSHIP,
   GENERATE_API_SUCCESS,
   GENERATE_API_FAILURE
 } from '../constants/actionTypes';
 
 import * as Dealerships from '../api/dealerships';
+import { create } from 'lodash';
 
 /* eslint-disable import/prefer-default-export */
 const requestDealershipsSuccess = createAction(REQUEST_DEALERSHIPS_SUCCESS);
@@ -59,3 +61,5 @@ export function generateApi(id) {
     .then(({ data }) => dispatch(generateApiSuccess(data)))
     .catch(error => dispatch(generateApiFailure(error)));
 }
+
+export const selectedDealership = createAction(SELECTED_DEALERSHIP);
