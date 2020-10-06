@@ -39,14 +39,14 @@ function SignIn({ dispatch, classes, currentUser, handleProfileClick, handleHome
         const params = { user: { name, email, password, password_confirmation: confirmPassword } };
         dispatch(registerUser(params))
         .then((response) => {
-          if (response.error) setError(response.payload.response.error);
+          if (response.error) setError("Failed to Register");
           return response;
         });
       } else setError({ message: 'email or password invalid' });
     } else {
       if (email && password) {
         dispatch(requestLogin({ email, password })).then((response) => {
-          if (response.error) setError(response.payload.response.error);
+          if (response.error) setError("Failed to Login");
           return response;
         });
       } else setError({ message: 'email or password invalid' });
@@ -79,6 +79,8 @@ function SignIn({ dispatch, classes, currentUser, handleProfileClick, handleHome
     )
   }
 
+  console.log(error);
+
   return (
     <main className={classes.main}>
       <CssBaseline />
@@ -88,13 +90,13 @@ function SignIn({ dispatch, classes, currentUser, handleProfileClick, handleHome
         </Avatar>
 
         <Typography component="h1" variant="h5">
-            Sign in
+            {open ? 'Sign Up' : 'Sign In'}
         </Typography>
 
         <form className={classes.form} onSubmit={handleSubmit}>
           {error && (
             <Typography className={classes.errorMessage}>
-              {error.message}
+              {error}
             </Typography>
           )}
 
