@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { isEmpty } from 'lodash';
 import { Grid } from '@material-ui/core';
@@ -6,14 +6,21 @@ import { Grid } from '@material-ui/core';
 import DealerInfo from '../../DealerInfo';
 import ReviewItem from '../../Review/ReviewItem';
 import AddDealershipForm from '../AddDealershipForm';
-import { currenDealerShip } from '../../../selectors/currentUserSelector';
+import { currentDealershipWithReviewsAndUsers } from '../../../selectors/currentUserSelector';
 import { generateApi } from '../../../actions/dealerships';
+import { requestReviews } from '../../../actions/reviews';
 import './Profile.css';
 
 const Profile = () => {
-    const dealer = useSelector(currenDealerShip);
+    const dealer = useSelector(currentDealershipWithReviewsAndUsers);
     const dispatch = useDispatch();
     const [api, setApi] = useState('');
+
+    useEffect(() => {
+        if (!isEmpty(dealer)) {
+            dispatch(requestReviews(dealer.id));
+        }
+    }, [dealer])
 
     if (isEmpty(dealer)) {
         return <span>Loading...</span>
@@ -26,6 +33,8 @@ const Profile = () => {
             }
         })
     }
+
+    console.log(dealer);
 
     return (
             <Grid item sm={8}>

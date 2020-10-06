@@ -24,7 +24,6 @@ export const Review = ({ selectedDealerId, currentUser }) => {
 
   const visibleReviews = dealerReviews.filter(f => f.visible)
 
-
     return (
         <div style={{ ...styles.ReviewsRectangleBox }}>
             <h2>Reviews</h2>

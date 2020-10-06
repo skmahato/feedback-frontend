@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Grid } from '@material-ui/core';
 
 import { dealershipsSelector } from '../../../selectors/dealerships';
+import { requestReviews } from '../../../actions/reviews';
 import DealerInfo from '../../DealerInfo';
 import Review from '../../Review';
 import AddDealershipForm from '../AddDealershipForm';
 
 const Layout = ( { currentUser }) => {
+    const dispatch = useDispatch();
     const [selectedDealerId, setSelectedDealerId] = useState(null);
     const dealerships = useSelector(dealershipsSelector);
+
+    const handleDealerClick = (id) => {
+        setSelectedDealerId(id);
+        dispatch(requestReviews(id));
+    }
 
     return (
         <>
@@ -21,7 +28,7 @@ const Layout = ( { currentUser }) => {
                         <DealerInfo
                             key={f.id}
                             dealer={f}
-                            handleDealerClick={(id) => setSelectedDealerId(id)}
+                            handleDealerClick={(id) => handleDealerClick(id)}
                         />
                     )
                 })}

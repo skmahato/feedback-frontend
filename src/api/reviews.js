@@ -2,7 +2,7 @@ import ajax from './ajax';
 
 /* eslint-disable import/prefer-default-export */
 export function requestReviews(dealershipId) {
-  return ajax(`/api/dealerships${dealershipId}/reviews`);
+  return ajax(`/api/dealerships/${dealershipId}/reviews`);
 }
 
 export function createReview(data, dealershipId) {
